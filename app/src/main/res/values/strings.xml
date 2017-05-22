@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Satelites</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_main">Reportar basurero</string>
+    <string name="gps_permissions_message">Para que esta aplicación funcione correctamente usted debe dar permisos de acceso al GPS ¿Desea hacerlo ahora?</string>
+    <string name="activate_gps_message">Para que esta aplicación funcione correctamente debe estar atcivado el GPS\n¿Desea activarlo ahora?</string>
+    <string name="url">http://104.236.33.228:8080/basureros/reportar/</string>
+</resources>
