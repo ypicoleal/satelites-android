@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -219,8 +220,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .setCompletedMessage("Subida completada exitosamente en [[ELAPSED_TIME]]")
                 .setAutoClearOnSuccess(true);
 
+        String image = ScalingUtilities.decodeFile(mCurrentPhotoPath, 1024, 1024);
+
         new MultipartUploadRequest(this, getString(R.string.url))
-                .addFileToUpload(mCurrentPhotoPath, "image")
+                .addFileToUpload(image, "image")
                 .setNotificationConfig(notificationConfig)
                 .setMaxRetries(1)
                 .addParameter("latitude", myPosition.getPosition().latitude + "")
@@ -357,7 +360,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return image;
     }
 
-
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -372,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = Uri.fromFile(photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".com.github.ypicoleal.satelites.provider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
